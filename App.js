@@ -13,10 +13,8 @@ import {
 } from 'react-native';
 
 const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+  ios: 'ios 可以看到这句话',
+  android: 'android 可以看到这句话'
 });
 
 export default class App extends Component<{}> {
@@ -37,6 +35,7 @@ export default class App extends Component<{}> {
   }
 }
 
+//这个和 css moudule 有点像..
 const styles = StyleSheet.create({
   container: {
     flex: 1,
