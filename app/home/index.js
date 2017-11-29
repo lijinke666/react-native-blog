@@ -5,6 +5,8 @@
  */
 
 import React, { Component } from 'react';
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 import {
   Platform,
   StyleSheet,
@@ -12,26 +14,37 @@ import {
   View
 } from 'react-native';
 
+import getMyName from "./action"
+import Button from "../components/button"
+
 const instructions = Platform.select({
   ios: 'ios 可以看到这句话',
   android: 'android 可以看到这句话'
 });
 
+@connect(
+  ({ HomeAction }) => ({
+    name: HomeAction.name,
+  }),
+  (dispatch) => (
+    bindActionCreators({
+      getMyName
+    }, dispatch)
+  )
+)
 export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <Button>测试Button 组件</Button>
+      <Text style={styles.instructions}>
+        {instructions}
+      </Text>
       </View>
     );
+  }
+  componentDidMount(){
+    this.props.getMyName()
   }
 }
 

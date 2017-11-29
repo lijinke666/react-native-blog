@@ -1,8 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')   //打包完成自动打开浏览器
 
 const HOST = "http://localhost"
-const PORT = 6666
+const PORT = 666
 
 module.exports = {
   devServer: {
@@ -58,9 +59,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+        __DEBUG__: true,
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
-    new webpack.optimize.DedupePlugin(),
     new webpack.HotModuleReplacementPlugin(),           //热加载插件  
     new OpenBrowserPlugin({                            //编译完成打开浏览器
         url: `${HOST}:${PORT}`
