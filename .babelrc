@@ -1,22 +1,28 @@
+// {
+//   "presets": [
+//     [
+//       "es2015",
+//       {
+//         "modules": false
+//       }
+//     ],
+//     "stage-1",
+//     "react-native"
+//   ],
+//   "plugins": [
+//     "react-native-web/babel",
+//     "transform-async-to-generator", //支持async写法
+//     "transform-decorators-legacy", //类的修饰器   @connect
+//     "transform-object-rest-spread", //类的静态属性  不会被继承  static defaultProps
+//     "transform-class-properties", //可以写类属性 test = ()=>{}
+//     "transform-runtime",
+//     "react-hot-loader/babel", //热跟新 
+//     ["import", { "libraryName": "antd-mobile" }] // 与 Web 平台的区别是不需要设置 style
+//   ]
+// }
+
 {
   "presets": [
-    [
-      "es2015",
-      {
-        "modules": false
-      }
-    ],
-    "stage-1",
     "react-native"
-  ],
-  "plugins": [
-    "react-native-web/babel",
-    "transform-async-to-generator", //支持async写法
-    "transform-decorators-legacy", //类的修饰器   @connect
-    "transform-object-rest-spread", //类的静态属性  不会被继承  static defaultProps
-    "transform-class-properties", //可以写类属性 test = ()=>{}
-    "transform-runtime",
-    "react-hot-loader/babel", //热跟新 
-    ["import", { "libraryName": "antd-mobile" }] // 与 Web 平台的区别是不需要设置 style
   ]
 }
