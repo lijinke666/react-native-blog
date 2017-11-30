@@ -1,13 +1,28 @@
 /**
  * 测试一下组件
  */
-import React,{
+import {
     StyleSheet,
-    Component,
     View,
     Text,
     TouchableOpacity
 } from "react-native"
+
+import React,{Component} from "react"
+
+export default class Button extends Component{
+    constructor(props) {
+        super(props)
+    }
+    render(){
+        const {type} = this.props
+        return (
+            <View style={styles.main}>
+                <Text>{this.props.children}</Text>
+            </View>
+        )
+    }
+}
 
 //css module
 const styles = StyleSheet.create({
@@ -35,20 +50,3 @@ const styles = StyleSheet.create({
 
     }
 })
-
-/**
- * 除了没css 之外 其他都感觉差不多..
- */
-export default class Button extends Component{
-    constructor(props) {
-        super(props)
-    }
-    render(){
-        const {type} = this.props
-        return (
-            <View style={styles.main}>
-                <Text>{this.props.children}</Text>
-            </View>
-        )
-    }
-}

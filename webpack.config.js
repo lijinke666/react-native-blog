@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')   //打包完成自动打开浏览器
+const HtmlWebpackPlugin = require("html-webpack-plugin")            //自动生成一个html 引入打包之后的js
 
 const HOST = "http://localhost"
 const PORT = 666
@@ -22,40 +23,36 @@ module.exports = {
     }
   },
   entry: {
-    app: __dirname           //index.js
+    app: __dirname        
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options:{
-            presets: [
-                [
-                    "es2015",
-                    {
-                      "modules": false
-                    }
-                  ],
-                  "stage-3",
-                  "react"
-            ],
-            plugins:[
-            "syntax-dynamic-import",   //解析webpack2.4.0  新增的 按需加载 import 语法
-            "transform-async-to-generator",     //支持async写法
-            "transform-decorators-legacy",      //类的修饰器   @connect
-            "transform-object-rest-spread",    //类的静态属性  不会被继承  static defaultProps
-            "transform-class-properties",     //可以写类属性 test = ()=>{}
-            "transform-runtime"
-            ]
-        }
-      }
+        include: [
+          path.resolve(__dirname,'App'),
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules/react-native-uncompiled')
+        ],
+        use:[{
+            loader: 'babel-loader'
+        }]
+      },
+      {
+        test: /\.(jpg|jpeg|png|gif|cur|ico)$/,
+        use: [{
+            loader: 'file-loader',
+            options: {
+                name: "images/[name].[ext]"          //遇到图片  生成一个images文件夹  名字.后缀的图片
+            }
+        }]
+    },
     ]
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath:`${HOST}:${PORT}/`
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -65,11 +62,27 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),           //热加载插件  
     new OpenBrowserPlugin({                            //编译完成打开浏览器
         url: `${HOST}:${PORT}`
-    })
+    }),
+    new HtmlWebpackPlugin({
+      filename: "index.html",           //自动把打包的js文件引入进去
+      template: path.resolve(__dirname, "./index.html"),  //模板文件
+      hash: false,        //添加hash码
+  }),
   ],
   resolve: {
     alias: {
       'react-native': 'react-native-web'
-    }
+    },
+    enforceExtension: false,        //2.0 后 不能写 extensions :[""]
+    extensions: ['.js', '.jsx', '.json','.web.js'],      //比如 test.js   可以写成 require('test')
+    modules: [
+        path.resolve("app"),         //比如 src/app/components/xx  可以写成 app/components/xx
+        path.resolve("."),
+        path.resolve("app/home"),
+        path.resolve("app/components"),
+        path.resolve("src/shared"),
+        path.resolve("src"),
+        "node_modules",
+    ],
   }
 }

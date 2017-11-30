@@ -4,47 +4,52 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import { Toast, WhiteSpace, WingBlank, Button } from 'antd-mobile';
 import {
   Platform,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  TouchableHighlight,
+  Alert
+} from 'react-native'
 
-import getMyName from "./action"
-import Button from "../components/button"
+import sayName from "./action"
 
 const instructions = Platform.select({
   ios: 'ios 可以看到这句话',
-  android: 'android 可以看到这句话'
+  android: '点我试试!'
 });
 
 @connect(
-  ({ HomeAction }) => ({
-    name: HomeAction.name,
+  ({ HomeReducer }) => ({
+    name: HomeReducer.name,
   }),
   (dispatch) => (
     bindActionCreators({
-      getMyName
+      sayName
     }, dispatch)
   )
 )
-export default class App extends Component<{}> {
+export default class Home extends Component{
   render() {
     return (
       <View style={styles.container}>
-      <Button>测试Button 组件</Button>
-      <Text style={styles.instructions}>
-        {instructions}
-      </Text>
+        <Text style={styles.instructions}>
+          {instructions}
+        </Text>
+        <Text onPress={this.onPress}>点我试试</Text>
+        <Button>我是按钮</Button>
       </View>
-    );
+    )
   }
   componentDidMount(){
-    this.props.getMyName()
+    Toast.loading('哈哈')
+    console.log(this.props)
+    // this.props.sayName()
   }
 }
 

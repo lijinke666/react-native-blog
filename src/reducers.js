@@ -1,10 +1,10 @@
 
-import HomeAction from "./home/reducer"
+import HomeReducer from "./home/reducer"
 
 import { combineReducers } from "redux"     //reducer的合并
 
 const chatReducer = combineReducers({
-  HomeAction
+  HomeReducer
 })
 
 export default chatReducer

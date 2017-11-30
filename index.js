@@ -1,6 +1,5 @@
-import { AppRegistry } from 'react-native';
-import App from './app';
+import { AppRegistry  } from 'react-native'
+import App from './src/index'
 
-AppRegistry.registerComponent('rnLijinkeWeb', () => App);
-//在浏览器运行
+AppRegistry.registerComponent('rnLijinkeWeb', () => App)
 AppRegistry.runApplication('rnLijinkeWeb', { rootTag: document.getElementById('react-root') })
