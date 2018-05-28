@@ -5,13 +5,13 @@
  */
 
 import React, { Component, Fragment } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, ScrollView } from "react-native";
 import { Button, TabBar, NavBar } from "antd-mobile";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 import { primaryColor, defaultColor } from "./src/styles/vars";
 
-import ArticleLists from "./src/components/ArticleLists"
-import About from "./src/components/About"
+import ArticleLists from "./src/components/ArticleLists";
+import About from "./src/components/About";
 
 export default class App extends Component {
   state = {
@@ -38,8 +38,8 @@ export default class App extends Component {
             onPress={() => this.toggleTab("article")}
             data-seed="logId"
           >
-          {/* TODO: */}
-            <ArticleLists pageIndex={1} pageSize={5}/>
+            {/* TODO: */}
+            <ArticleLists pageIndex={1} pageSize={5} />
           </TabBar.Item>
           <TabBar.Item
             icon={<Icon name="check" />}
@@ -50,7 +50,7 @@ export default class App extends Component {
             onPress={() => this.toggleTab("about")}
             data-seed="logId1"
           >
-            <About/>
+            <About />
           </TabBar.Item>
         </TabBar>
     );

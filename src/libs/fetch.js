@@ -22,7 +22,7 @@ const helper = {
    */
 
   async get(url, params) {
-    Toast.loading("加载中...");
+    Toast.loading(`加载中`,999);
     try {
       const data = await fetch(`${remote}/api${url}${qs.stringify(params)}`, {
         method: "GET",
@@ -30,7 +30,8 @@ const helper = {
       });
       return helper.sendResponse(data);
     } catch (err) {
-      Toast.fail("服务器出错!");
+      Toast.loading(`${remote}/api${url}${qs.stringify(params)}`);
+      Toast.fail(`服务器出错:${err}`);
     }
   },
 
@@ -47,7 +48,7 @@ const helper = {
       mode: "cors",
       body: isForm ? params : JSON.stringify(params)
     };
-    Toast.loading("加载中...");
+    Toast.loading(`加载中`,999);
     try {
       const data = await fetch(`${remote}/api${url}`, fetchConfig);
       return helper.sendResponse(data);

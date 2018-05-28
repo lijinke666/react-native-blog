@@ -5,7 +5,8 @@ import {
   Text,
   View,
   ScrollView,
-  Image
+  Image,
+  Linking
 } from "react-native";
 import {
   Card,
