@@ -16,39 +16,40 @@ const helper = {
     TIMEOUT: 503
   },
   /**
-   * get 请求
+   * @name get 请求
    * @param {url} String 请求地址 支持跨域
    * @param {params} obj 请求参数
    */
 
   async get(url, params) {
-    Toast.loading(`加载中`,999);
+    Toast.loading(`加载中...`, 999);
     try {
-      const data = await fetch(`${remote}/api${url}${qs.stringify(params)}`, {
-        method: "GET",
-        mode: "cors"
-      });
+      const data = await fetch(
+        `https://facebook.github.io/react-native/movies.json`,
+        {
+          method: "GET",
+          mode: "cors"
+        }
+      );
       return helper.sendResponse(data);
     } catch (err) {
-      Toast.loading(`${remote}/api${url}${qs.stringify(params)}`);
-      Toast.fail(`服务器出错:${err}`);
+      Toast.fail(`数据请求失败:${err}`);
     }
   },
 
   /**
-   * post 请求
+   * @name post 请求
    * @param {url} String 请求地址 支持跨域
    * @param {params} obj 请求参数
-   * @param {isForm} boolean 是否是表单提交 表单提交 如:formData
    */
 
-  async post(url, params, isForm = false) {
+  async post(url, params) {
     const fetchConfig = {
       method: "POST",
       mode: "cors",
-      body: isForm ? params : JSON.stringify(params)
+      body: JSON.stringify(params)
     };
-    Toast.loading(`加载中`,999);
+    Toast.loading(`加载中...`, 999);
     try {
       const data = await fetch(`${remote}/api${url}`, fetchConfig);
       return helper.sendResponse(data);
@@ -61,15 +62,18 @@ const helper = {
     const { status } = data;
     switch (status) {
       case this.resCode["SUCCESS"]:
+        Toast.hide();
         return data.json();
       case this.resCode["ERROR"]:
+        Toast.hide();
         return Toast.error("接口请求失败! :(");
       case this.resCode["TIMEOUT"]:
+        Toast.hide();
         return Toast.offline("哦豁,请求超时!");
       default:
+        Toast.hide();
         return data.json();
     }
-    Toast.hide();
   }
 };
 export default helper;

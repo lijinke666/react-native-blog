@@ -52,5 +52,9 @@
 			</dict>
 		</dict>
 	</dict>
+	<dict>
+ 　　<key>NSAllowsArbitraryLoads</key>
+　　 <true/>
+	</dict>
 </dict>
 </plist>
